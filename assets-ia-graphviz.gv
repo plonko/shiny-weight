@@ -1,183 +1,100 @@
-digraph booklayout {
+digraph bookem_ia {
     graph [
-        //rankdir = "LR",
+        rankdir = "LR",
         nodesep= 1,
     ];
 
     node [shape=tab, fontname="Sans"];
     edge [minlen=3];
 
-    // Music
-    home[
-        label="Home"
+    // Manager role
+    subgraph cluster_0 {
+        style="invis"
+        color="white"
+        manager_admin[
+            label="Manager admin"
+            shape = "record"
+        ];
+        staff_admin[
+            label="Staff admin"
+            shape = "record"
+        ];
+        client[
+            label="Client front end"
+            shape = "record"
+        ];
+    }
+
+    manager_calendar[
+        label="Manager calendar"
         shape = "record"
     ];
 
-    order_type[
-        label="Order type &#92;n (Pre-Booking/Reorders)"
+    staff_list[
+        label="Staff list"
         shape = "record"
     ];
 
-    campaign[
-        label="Campaign"
+    // Staff role
+
+    staff_calendar[
+        label="Staff personal calendar"
         shape = "record"
     ];
 
-    clothing_type[
-        label="Clothing type"
+    staff_profile_edit[
+        label="Edit staff profile"
         shape = "record"
     ];
 
-    product_list[
-        label="Product list view"
+    // Client role
+
+    make_appointment[
+        label="Make appointment|<f0>Book by date|<f1>Book by staff member"
         shape = "record"
     ];
 
-    product_detail[
-        label="Product detail view"
+    booking_calendar[
+        label="FE booking calendar"
+        shape = "record"
+    ];
+    
+    staff_profiles[
+        label="Staff profiles"
         shape = "record"
     ];
 
-    product_variants[
-        label="Washes (model variants)"
-        shape = "record"
-    ];
 
-    product_list_detail[
-        label="Product detail and list combined"
-        shape = "record"
-    ];
+    manager_admin -> manager_calendar;
+    manager_admin -> staff_list -> staff_profile_edit;
 
-    add_to_order[
-        label="Add to order"
-        shape = "record"
-    ];
+    staff_admin -> staff_calendar;
+    staff_admin -> staff_profile_edit;
+    
+    client -> make_appointment;
 
-    checkout[
-        label="My orders (checkout)"
-        shape = "record"
-    ];
-
-    favourites[
-        label="My favourites"
-        shape = "record"
-    ];
-
-    search[
-        label="Search"
-        shape = "record"
-    ];
-
-    account[
-        label="My account"
-        shape = "record"
-    ];
-
-    complete_checkout[
-        label="Complete order"
-        shape = "record"
-    ];
-
-    current_order[
-        label="Current order (checkout)"
-        shape = "record"
-    ];
-
-    submitted_orders[
-        label="Submitted orders"
-        shape = "record"
-    ];
-
-    unsubmitted_orders[
-        label="Unsubmitted orders"
-        shape = "record"
-    ];
-
-    news_list[
-        label="News list"
-        shape = "record"
-    ];
-
-    news_detail[
-        label="News article"
-        shape = "record"
-    ];
-
-    fit_guide[
-        label="Fit Guide"
-        shape = "record"
-    ];
-
-    related[
-        label="Other options (Related styles)"
-        shape = "record"
-    ];
-
-    store_guide[
-        label="Store Locator"
-        shape = "oval"
-        color=blue
-    ];
-
-    official_site[
-        label="Official Site"
-        shape = "oval"
-        color=blue
-    ];
-
-    downloads[
-        label="Downloads"
-        shape = "record"
-    ];
-
-    faqs[
-        label="FAQs"
-        shape = "record"
-    ];
-
-    filter[
-        label="Filter"
-        shape=note
-        style=dashed
-    ]
-
-    contact[
-        label="Contact (email form)"
-        shape = "record"
-    ];
-
-    language[
-        label="Select language"
-        shape = "record"
-    ];
-
-    order_type -> campaign -> home;
-
-    home -> clothing_type;
-    home -> fit_guide;
-    home -> store_guide;
-    home -> official_site;
-    home -> news_list -> news_detail;
-    home -> downloads;
-    home -> faqs;
-    home -> contact;
-    home -> language;
-    home -> account;
+    make_appointment:f0 -> booking_calendar;
+    make_appointment:f1 -> staff_profiles;
+    //home -> downloads;
+    //home -> faqs;
+    //home -> contact;
+    //home -> language;
+    //home -> account;
 
     //news_list:f3 -> fit_guide;
 
 
-    clothing_type -> product_list;
-    product_list -> filter -> product_list;
-    product_list -> product_variants -> product_detail -> Related_styles -> product_detail;
-    product_detail -> add_to_order -> current_order -> complete_checkout;
+    //clothing_type -> product_list;
+    //product_list -> filter -> product_list;
+    //product_list -> product_variants -> product_detail -> Related_styles -> product_detail;
+    //product_detail -> add_to_order -> current_order -> complete_checkout;
 
-    home -> checkout -> current_order;
-    checkout -> submitted_orders -> current_order;
-    checkout -> unsubmitted_orders -> current_order;
+    //home -> checkout -> current_order;
+    //checkout -> submitted_orders -> current_order;
+    //heckout -> unsubmitted_orders -> current_order;
 
-    home -> favourites -> product_list_detail;
+    //home -> favourites -> product_list_detail;
 
-    home -> search -> product_list_detail -> related -> product_list_detail -> add_to_order;
+    //home -> search -> product_list_detail -> related -> product_list_detail -> add_to_order;
 
 }
