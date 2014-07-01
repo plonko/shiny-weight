@@ -42,6 +42,11 @@ digraph bookem_ia {
         shape = "record"
     ];
 
+    confirm_booking[
+        label="Confirm booking"
+        shape = "record"
+    ];
+
     staff_profile_edit[
         label="Edit staff profile"
         shape = "record"
@@ -51,11 +56,6 @@ digraph bookem_ia {
 
     make_appointment[
         label="Make appointment|<f0>Book by date|<f1>Book by staff member"
-        shape = "record"
-    ];
-
-    select_date_time[
-        label="Select date and time/duration"
         shape = "record"
     ];
 
@@ -75,7 +75,12 @@ digraph bookem_ia {
     ];
 
     select_staff_member[
-        label="Select staff member|<f0>Booking by date|<f1>Booking by staff"
+        label="Select staff member|<f0> If booking by date|<f1>If booking by staff"
+        shape = "record"
+    ];
+
+    request_booking[
+        label="Request booking"
         shape = "record"
     ];
 
@@ -86,30 +91,16 @@ digraph bookem_ia {
     staff_admin -> staff_calendar;
     staff_admin -> staff_profile_edit;
     
-    client -> make_appointment;
+    client -> make_appointment:n;
 
     make_appointment:f0 -> booking_calendar:f0 -> staff_available -> select_staff_member:f0;
-    make_appointment:f1 -> staff_profiles -> select_staff_member:f1 -> booking_calendar:f1;
-    //home -> downloads;
-    //home -> faqs;
-    //home -> contact;
-    //home -> language;
-    //home -> account;
+    make_appointment:f1 -> staff_profiles -> select_staff_member:f1:s;
 
-    //news_list:f3 -> fit_guide;
+    select_staff_member:f0 -> request_booking;
+    select_staff_member:f1 -> booking_calendar:f1:w;
+    booking_calendar:f1:e -> request_booking;
 
+    request_booking -> staff_calendar -> confirm_booking -> manager_calendar;
 
-    //clothing_type -> product_list;
-    //product_list -> filter -> product_list;
-    //product_list -> product_variants -> product_detail -> Related_styles -> product_detail;
-    //product_detail -> add_to_order -> current_order -> complete_checkout;
-
-    //home -> checkout -> current_order;
-    //checkout -> submitted_orders -> current_order;
-    //heckout -> unsubmitted_orders -> current_order;
-
-    //home -> favourites -> product_list_detail;
-
-    //home -> search -> product_list_detail -> related -> product_list_detail -> add_to_order;
 
 }
