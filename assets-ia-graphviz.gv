@@ -54,13 +54,28 @@ digraph bookem_ia {
         shape = "record"
     ];
 
+    select_date_time[
+        label="Select date and time/duration"
+        shape = "record"
+    ];
+
     booking_calendar[
-        label="FE booking calendar"
+        label="Booking calendar|<f0>Select date and time/duration|<f1>Available dates for selected staff"
         shape = "record"
     ];
     
     staff_profiles[
         label="Staff profiles"
+        shape = "record"
+    ];
+
+    staff_available[
+        label="Staff available for selected date"
+        shape = "record"
+    ];
+
+    select_staff_member[
+        label="Select staff member|<f0>Booking by date|<f1>Booking by staff"
         shape = "record"
     ];
 
@@ -73,8 +88,8 @@ digraph bookem_ia {
     
     client -> make_appointment;
 
-    make_appointment:f0 -> booking_calendar;
-    make_appointment:f1 -> staff_profiles;
+    make_appointment:f0 -> booking_calendar:f0 -> staff_available -> select_staff_member:f0;
+    make_appointment:f1 -> staff_profiles -> select_staff_member:f1 -> booking_calendar:f1;
     //home -> downloads;
     //home -> faqs;
     //home -> contact;
